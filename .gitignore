@@ -13,6 +13,7 @@
 /reflector
 /planner
 /smart_router
+/openai
 
 # Test binary
 *.test
@@ -37,6 +38,9 @@ Thumbs.db
 
 # Temporary files
 /tmp/
+
+# Runtime data
+.gokin/
 
 # Claude Code
 CLAUDE.md
