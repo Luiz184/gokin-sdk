@@ -3,11 +3,11 @@
 [![Go](https://img.shields.io/badge/Go-1.23+-00ADD8?style=flat&logo=go)](https://go.dev)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
-Go framework for building AI agents with tool use, multi-agent orchestration, planning, and reflection. Supports **Gemini**, **Anthropic (Claude)**, and **Ollama** as LLM providers.
+Go framework for building AI agents with tool use, multi-agent orchestration, planning, and reflection. Supports **Gemini**, **OpenAI**, **Anthropic (Claude)**, and **Ollama** as LLM providers.
 
 ## Features
 
-- **Multi-provider** — Gemini, Anthropic, and Ollama with unified interface
+- **Multi-provider** — Gemini, OpenAI, Anthropic, and Ollama with unified interface
 - **Tool use** — 29 built-in tools (bash, file I/O, git, grep, web search, and more)
 - **Multi-agent** — Runner/Coordinator for parallel and sequential agent execution
 - **Planning** — Beam search, MCTS, and A* strategies for complex task decomposition
@@ -83,6 +83,18 @@ func main() {
 client, err := gemini.New(ctx, os.Getenv("GEMINI_API_KEY"), "gemini-2.0-flash")
 ```
 
+### OpenAI
+
+```go
+client, err := openai.New(os.Getenv("OPENAI_API_KEY"), "gpt-4o")
+```
+
+Works with any OpenAI-compatible API (vLLM, LM Studio, Together AI, Groq):
+
+```go
+client, err := openai.New(apiKey, "model-name", openai.WithBaseURL("http://localhost:8000"))
+```
+
 ### Anthropic (Claude)
 
 ```go
@@ -125,7 +137,7 @@ results, err := coordinator.RunParallel(ctx, []sdk.AgentTask{
 
 ```
 gokin-sdk/
-├── provider/          # LLM providers (gemini, anthropic, ollama)
+├── provider/          # LLM providers (gemini, openai, anthropic, ollama)
 ├── tools/             # Built-in tool implementations
 ├── plan/              # Planning engine (beam, MCTS, A*)
 ├── context/           # Context management and summarization
@@ -141,6 +153,7 @@ gokin-sdk/
 ├── pool.go            # Client connection pool
 ├── examples/          # Usage examples
 │   ├── simple/        # Basic agent
+│   ├── openai/        # OpenAI / compatible APIs
 │   ├── anthropic/     # Anthropic provider
 │   ├── multi_agent/   # Parallel agents
 │   ├── planner/       # Plan-driven execution
@@ -155,6 +168,7 @@ gokin-sdk/
 See the [`examples/`](examples/) directory for runnable demos:
 
 - **[simple](examples/simple/)** — Basic agent with Gemini
+- **[openai](examples/openai/)** — OpenAI and compatible APIs (vLLM, Groq, etc.)
 - **[anthropic](examples/anthropic/)** — Using Claude as the provider
 - **[multi_agent](examples/multi_agent/)** — Parallel task execution
 - **[planner](examples/planner/)** — Plan-driven agent with beam search
